@@ -330,6 +330,7 @@ function accountRegisterPage(error = "") {
       <label>Email<input name="email" type="email" required maxlength="150"></label>
       <label>Phone<input name="phone" maxlength="40" placeholder="+251 ..."></label>
       <label>Password<input type="password" name="password" required minlength="6" maxlength="128"></label>
+      <label>Confirm password<input type="password" name="confirm_password" required minlength="6" maxlength="128"></label>
       <button class="btn primary" type="submit">Create account</button>
       <p class="muted">Already have an account? <a href="/account/login">Sign in</a></p>
     </form>
@@ -610,7 +611,9 @@ async function handle(req, res) {
     const companyName = clip(f.company_name, 150).trim();
     const phone = clip(f.phone, 40).trim();
     const password = String(f.password || "");
+    const confirmPassword = String(f.confirm_password || "");
     if (!name || !companyName || !email || password.length < 6) return send(res, 400, accountRegisterPage("Please provide a valid name, company name, email, and password with at least 6 characters."));
+    if (password !== confirmPassword) return send(res, 400, accountRegisterPage("Passwords do not match. Please re-enter them."));
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return send(res, 400, accountRegisterPage("That email address does not look right."));
     if (q.customerByEmail.get(email)) return send(res, 409, accountRegisterPage("An account already exists for this email."));
     const inserted = q.customerInsert.run(name, companyName, email, phone, hashPassword(password), now());
