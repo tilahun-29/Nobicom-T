@@ -1,0 +1,15 @@
+{
+  "name": "nobicom-helpdesk",
+  "version": "1.0.0",
+  "description": "Customer help desk for Nobicom Technology Integration PLC",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "backup": "node scripts/backup.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

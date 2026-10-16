@@ -1,0 +1,5 @@
+data/
+backups/
+.env
+node_modules/
+*.zip

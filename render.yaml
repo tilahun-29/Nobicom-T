@@ -1,0 +1,29 @@
+# Render Blueprint: Render reads this file and creates the service for you.
+# A persistent disk is needed so tickets survive restarts, and that needs a paid instance type.
+services:
+  - type: web
+    name: nobicom-helpdesk
+    runtime: docker
+    plan: starter
+    healthCheckPath: /healthz
+    disk:
+      name: helpdesk-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_PATH
+        value: /data/helpdesk.db
+      - key: TRUST_PROXY
+        value: "1"
+      - key: COMPANY_NAME
+        value: Nobicom Technology Integration PLC
+      - key: STAFF_USERS
+        sync: false
+      - key: PUBLIC_URL
+        sync: false
+      - key: SUPPORT_HOTLINE
+        sync: false
+      - key: SUPPORT_EMAIL
+        sync: false

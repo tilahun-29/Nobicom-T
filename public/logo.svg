@@ -1,0 +1,21 @@
+<svg width="220" height="120" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="28" x2="112" y1="10" y2="92" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFB35C"/>
+      <stop offset="1" stop-color="#FF6A00"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="84" x2="170" y1="12" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F5CCF"/>
+      <stop offset="1" stop-color="#0A2E5D"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <path d="M112 14C82 14 56 35 52 63L66 63C68.5 45.1 83.5 31 101.5 31C120.1 31 136 46.9 136 65.5C136 84.1 120.1 100 101.5 100C86.8 100 73.9 91.4 68 79.3L52 79.3C58.7 98.7 78.6 112 101.5 112C130.2 112 153 89.2 153 60.5C153 31.8 130.2 14 112 14Z" fill="url(#g1)"/>
+    <path d="M34 97L63 58L82 78L52 117L34 97Z" fill="#FF7A00"/>
+    <path d="M141 14H157V102H141V14Z" fill="url(#g2)"/>
+    <path d="M158 14L196 102H178L140 14H158Z" fill="url(#g2)"/>
+    <path d="M113 14H129L90 102H74L113 14Z" fill="url(#g2)"/>
+    <path d="M85 14H101L64 102H48L85 14Z" fill="url(#g2)" opacity="0.86"/>
+    <path d="M30 74L56 38L71 53L44 89L30 74Z" fill="#FF953D" opacity="0.9"/>
+  </g>
+</svg>

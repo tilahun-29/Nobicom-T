@@ -1,0 +1,6 @@
+data
+backups
+.env
+.git
+node_modules
+*.zip
