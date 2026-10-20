@@ -4,12 +4,38 @@ Pick one option. Option A is the easiest. Option B gives you full control on you
 
 You need a web address for the site. A subdomain such as `help.yourcompany.com` works well. You can start with the free address your host gives you and add your own later.
 
+## Deploy beside the main Nobicom site
+
+To serve the help desk at `https://nobicomtech.com/support`, set:
+
+```
+PUBLIC_URL=https://nobicomtech.com
+BASE_PATH=/support
+```
+
+Keep the prefix on the public URL. Start only the app container so this project does not compete with the main site's web server for ports 80/443:
+
+```
+docker compose up -d --build app
+```
+
+The app is published only on `127.0.0.1:3000`. In the existing Nobicom reverse-proxy configuration, route only `/support` to this app and keep the current website handler as the fallback. For Caddy, add this inside the existing `nobicomtech.com` site block:
+
+```
+@helpdesk path /support /support/*
+handle @helpdesk {
+   reverse_proxy 127.0.0.1:3000
+}
+```
+
+Set `BASE_PATH=/support` in the app environment. The proxy can preserve `/support`; the app handles both preserved and stripped prefixes and uses the prefix in links, assets, redirects, cookies, and ticket URLs. Do not replace the main site's Caddy configuration with this app's standalone `Caddyfile`.
+
 ## Option A: Render (about 15 minutes)
 
 1. Create a free account at https://github.com. Create a **private** repository and upload all files from this folder. Do not upload a file named `.env`.
 2. Create an account at https://render.com. Choose **New**, then **Blueprint**, and connect your repository. Render reads `render.yaml` and sets everything up.
 3. Render asks for the settings below. Fill them in:
-   - `STAFF_USERS`: your staff logins as `name:password,name:password`. Passwords need at least 10 characters.
+   - `STAFF_USERS`: staff emails and passwords as `name@nobicomtech.com:password`. Emails must use `@nobicomtech.com`; passwords need at least 10 characters.
    - `PUBLIC_URL`: for now the address Render shows for your service, for example `https://nobicom-helpdesk.onrender.com`.
    - `SUPPORT_HOTLINE` and `SUPPORT_EMAIL`: shown on the site.
 4. Press deploy and wait until the service shows **Live**. Open the address. Staff sign in at `/staff`.

@@ -13,13 +13,13 @@ No packages to install. It needs only **Node.js 22.13 or newer**.
 2. Open a terminal in this folder and run:
 
 ```
-STAFF_USERS="amanuel:choose-a-password,hanna:another-password" node server.js
+STAFF_USERS="amanuel@nobicomtech.com:choose-a-password,hanna@nobicomtech.com:another-password" node server.js
 ```
 
 On Windows PowerShell:
 
 ```
-$env:STAFF_USERS="amanuel:choose-a-password,hanna:another-password"; node server.js
+$env:STAFF_USERS="amanuel@nobicomtech.com:choose-a-password,hanna@nobicomtech.com:another-password"; node server.js
 ```
 
 3. Customers page: http://localhost:3000  Staff page: http://localhost:3000/staff
@@ -30,7 +30,7 @@ Set these as environment variables (see `.env.example`).
 
 | Setting | What it does |
 |---|---|
-| `STAFF_USERS` | Staff logins as `name:password,name:password`. **Required before going live.** |
+| `STAFF_USERS` | Staff logins as `email:password,email:password`. Emails must end in `@nobicomtech.com`. **Required before going live.** |
 | `COMPANY_NAME` | Name shown on every page. Default is Nobicom Technology Integration PLC. |
 | `SUPPORT_HOTLINE` | Hotline number shown on the site. |
 | `SUPPORT_EMAIL` | After-sales email shown on the site. |

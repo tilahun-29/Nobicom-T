@@ -9,10 +9,11 @@ services:
       NODE_ENV: production
       DB_PATH: /data/helpdesk.db
       TRUST_PROXY: "1"
+      BASE_PATH: ${BASE_PATH:-}
     volumes:
       - helpdesk-data:/data
-    expose:
-      - "3000"
+    ports:
+      - "127.0.0.1:3000:3000"
 
   caddy:
     image: caddy:2
