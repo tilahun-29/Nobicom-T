@@ -16,7 +16,7 @@ You need a web address for the site. A subdomain such as `help.yourcompany.com` 
    - `SUPPORT_HOTLINE` and `SUPPORT_EMAIL` to the contact details to display.
    Leave `BASE_PATH` unset for a standalone Railway domain. Railway provides `PORT` automatically.
 3. In the service's **Settings**, generate a public domain. Set `PUBLIC_URL` to that HTTPS address and redeploy.
-4. Add a Railway **Volume** mounted at `/data`, then deploy. This keeps tickets across restarts and deployments. SQLite needs one running app replica; do not scale this service horizontally.
+4. Add a Railway **Volume** mounted at `/data`, then deploy. The container prepares the mounted database directory's ownership before dropping to the unprivileged app user. This keeps tickets across restarts and deployments. SQLite needs one running app replica; do not scale this service horizontally.
 5. Wait for the deployment health check at `/healthz` to pass, then check the public site and sign in at `/staff`.
 
 The app intentionally refuses to start in production without valid `STAFF_USERS` and passwords of at least 10 characters. Do not commit real credentials or a `.env` file.
