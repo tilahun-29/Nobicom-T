@@ -4,6 +4,23 @@ Pick one option. Option A is the easiest. Option B gives you full control on you
 
 You need a web address for the site. A subdomain such as `help.yourcompany.com` works well. You can start with the free address your host gives you and add your own later.
 
+## Option A: Railway
+
+1. In Railway, create a project and deploy this GitHub repository as a service. Railway uses the included `Dockerfile` and `railway.json`.
+2. In the service's **Variables**, set:
+   - `STAFF_USERS` to one or more staff accounts in `name@nobicomtech.com:strong-password` format. Use a password of at least 10 characters; separate multiple accounts with commas.
+   - `NODE_ENV` to `production`.
+   - `TRUST_PROXY` to `1`.
+   - `DB_PATH` to `/data/helpdesk.db`.
+   - `PUBLIC_URL` to the service's public HTTPS URL after generating a domain.
+   - `SUPPORT_HOTLINE` and `SUPPORT_EMAIL` to the contact details to display.
+   Leave `BASE_PATH` unset for a standalone Railway domain. Railway provides `PORT` automatically.
+3. In the service's **Settings**, generate a public domain. Set `PUBLIC_URL` to that HTTPS address and redeploy.
+4. Add a Railway **Volume** mounted at `/data`, then deploy. This keeps tickets across restarts and deployments. SQLite needs one running app replica; do not scale this service horizontally.
+5. Wait for the deployment health check at `/healthz` to pass, then check the public site and sign in at `/staff`.
+
+The app intentionally refuses to start in production without valid `STAFF_USERS` and passwords of at least 10 characters. Do not commit real credentials or a `.env` file.
+
 ## Deploy beside the main Nobicom site
 
 To serve the help desk at `https://nobicomtech.com/support`, set:
@@ -30,7 +47,7 @@ handle @helpdesk {
 
 Set `BASE_PATH=/support` in the app environment. The proxy can preserve `/support`; the app handles both preserved and stripped prefixes and uses the prefix in links, assets, redirects, cookies, and ticket URLs. Do not replace the main site's Caddy configuration with this app's standalone `Caddyfile`.
 
-## Option A: Render (about 15 minutes)
+## Option B: Render (about 15 minutes)
 
 1. Create a free account at https://github.com. Create a **private** repository and upload all files from this folder. Do not upload a file named `.env`.
 2. Create an account at https://render.com. Choose **New**, then **Blueprint**, and connect your repository. Render reads `render.yaml` and sets everything up.
@@ -43,7 +60,7 @@ Set `BASE_PATH=/support` in the app environment. The proxy can preserve `/suppor
 
 The `render.yaml` file includes a 1 GB disk, and that is where tickets are kept. Render only offers disks on paid instance types, so check the current price on their site. Without a disk, every restart erases all tickets.
 
-## Option B: Your own server with Docker
+## Option C: Your own server with Docker
 
 You need an Ubuntu server (22.04 or 24.04, 1 GB memory is enough) and a domain name.
 
@@ -79,7 +96,7 @@ Useful commands, run from this folder on the server:
 | Update after changing files | `docker compose up -d --build` |
 | Stop everything | `docker compose down` |
 
-## Option C: Your own server without Docker
+## Option D: Your own server without Docker
 
 1. Install Node.js 22.13 or newer.
 2. Copy this folder to `/opt/nobicom-helpdesk`.

@@ -43,7 +43,7 @@ Set these as environment variables (see `.env.example`).
 
 ## Putting it on the internet
 
-See **DEPLOY.md** for step-by-step instructions for Render, for your own server with Docker (https included), and for a server without Docker. It also covers backups and a go-live checklist.
+See **DEPLOY.md** for step-by-step instructions for Railway, Render, your own server with Docker (https included), and a server without Docker. It also covers backups and a go-live checklist.
 
 ## What it does not do yet
 
